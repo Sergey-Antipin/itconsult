@@ -90,7 +90,7 @@ public class UndoableStringBuilder {
 
     }
 
-    private static class StateHistory {
+    private class StateHistory {
 
         private final Deque<Snapshot> stack = new LinkedList<>();
 
