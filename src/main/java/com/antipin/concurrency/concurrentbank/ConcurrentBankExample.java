@@ -18,7 +18,7 @@ public class ConcurrentBankExample {
         for (int i =0; i < 1000; i++) {
             new Thread(() -> bank.transfer(account1, account2, BigDecimal.valueOf(2.00))).start();
             new Thread(() -> bank.transfer(account2, account1, BigDecimal.valueOf(1.00))).start();
-            System.out.println(bank.getTotalBalance());
+            new Thread(() -> System.out.println(bank.getTotalBalance())).start();
         }
 
         try {
