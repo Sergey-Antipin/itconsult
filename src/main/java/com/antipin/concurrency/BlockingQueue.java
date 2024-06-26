@@ -52,7 +52,7 @@ public class BlockingQueue<E> {
                 takeIndex = 0;
             }
             count--;
-            notify();
+            notifyAll();
             return element;
         } finally {
             lock.unlock();
@@ -74,7 +74,7 @@ public class BlockingQueue<E> {
                 putIndex = 0;
             }
             count++;
-            notify();
+            notifyAll();
         } finally {
             lock.unlock();
         }
