@@ -26,7 +26,8 @@ public class ComplexTaskExecutor {
     private final CyclicBarrier barrier;
 
     public ComplexTaskExecutor(int numberOfTasks) {
-        barrier = new CyclicBarrier(numberOfTasks, () -> System.out.println("all tasks are done"));
+        barrier = new CyclicBarrier(numberOfTasks,
+                () -> System.out.println(Thread.currentThread().getName() + " all tasks are done"));
     }
 
     public void executeTasks(int numberOfTasks) {
@@ -42,13 +43,15 @@ public class ComplexTaskExecutor {
         @Override
         public void run() {
             Random random = new Random();
+            String name = Thread.currentThread().getName();
+            System.out.println(name + " task started");
             try {
                 Thread.sleep(random.nextInt(2000));
-                System.out.println("Number of waiting tasks: " + barrier.getNumberWaiting());
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("task is done, waiting for barrier...");
+            System.out.println(name + " Number of waiting tasks: " + barrier.getNumberWaiting());
+            System.out.println(name + " task is done, waiting for barrier...");
             try {
                 barrier.await();
             } catch (InterruptedException | BrokenBarrierException e) {
